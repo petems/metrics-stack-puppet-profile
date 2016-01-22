@@ -1,5 +1,11 @@
-# This Puppetfile serves to test the code manager service's
-# r10k backing. The idea is that this repository will be
-# mounted at /vagrant, and can be used as the r10k remote.
+moduledir '/etc/puppetlabs/code/modules'
 
-mod 'puppetlabs/stdlib'
+mod 'puppetlabs-stdlib'
+
+mod 'collectd',
+  :git => 'https://github.com/petems/puppet-collectd',
+  :ref => 'add_ability_to_set_conf_content'
+
+mod 'grafana',
+  :git => 'https://github.com/petems/puppet-grafana',
+  :ref => 'add_grafana_datasource_and_dashboard'
