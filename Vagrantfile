@@ -12,17 +12,36 @@ Vagrant.configure(2) do |config|
 
   config.vm.network "public_network"
 
+  # Install Ruby
   config.vm.provision "shell", inline: <<-SHELL
-  yum install -y epel-release git ftp://rpmfind.net/linux/sourceforge/c/cr/crowbar/core/trunk/ruby-2.1.2-2.el6.x86_64.rpm
-  gem install r10k
-  cd /vagrant/ && r10k puppetfile install -v
-  puppet apply /vagrant/manifests/site.pp
-  echo "Simulating some load to make the graphs more interesting"
-  yum install -y stress
-  stress --cpu 1 --timeout 60
-  service iptables stop
-  echo "Grafana is running at http://`facter ipaddress`:3000"
-  Username and password: admin:admin
+    curl -s https://packagecloud.io/install/repositories/petems/ruby2/script.rpm.sh | sudo bash
+    yum install -y ruby
+  SHELL
+
+  # Use r10k to download modules
+  config.vm.provision "shell", inline: <<-SHELL
+    yum install -y epel-release git
+    gem install r10k --no-ri --no-rdoc
+    cd /vagrant/ && r10k puppetfile install -v
+  SHELL
+
+  # Use Vagrant provisioner to run puppet
+  config.vm.provision :puppet do |puppet|
+    puppet.environment_path = "environments"
+    puppet.environment = "vagrant"
+    # puppet.options = "--verbose --debug" # Uncomment for debugging
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    echo "Simulating some load to make the graphs more interesting"
+    yum install -y stress
+    stress --cpu 1 --timeout 60
+  SHELL
+
+  config.vm.provision "shell", inline: <<-SHELL
+    service iptables stop # Could do this with Puppet, but feeling lazy
+    echo "Grafana is running at http://`facter ipaddress`:3000"
+    echo "Username and password: admin:admin"
   SHELL
 
 end

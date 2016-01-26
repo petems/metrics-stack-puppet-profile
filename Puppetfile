@@ -9,3 +9,7 @@ mod 'collectd',
 mod 'grafana',
   :git => 'https://github.com/petems/puppet-grafana',
   :ref => 'add_grafana_datasource_and_dashboard'
+
+mod 'packagecloud',
+  :git => 'https://github.com/computology/computology-packagecloud',
+  :ref => '42ae13e59894517f8688e536fbc54d6d9e66e3e2'
