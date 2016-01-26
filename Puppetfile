@@ -13,3 +13,8 @@ mod 'grafana',
 mod 'packagecloud',
   :git => 'https://github.com/computology/computology-packagecloud',
   :ref => '42ae13e59894517f8688e536fbc54d6d9e66e3e2'
+
+mod 'influxdb',
+  :git => 'https://github.com/n1tr0g/golja-influxdb',
+  :ref => '58fe0e7c9060bd9f03b95aac8a8ed9db48a87fe7'
+
