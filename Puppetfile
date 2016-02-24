@@ -3,8 +3,8 @@ moduledir '/etc/puppetlabs/code/modules'
 mod 'puppetlabs-stdlib'
 
 mod 'collectd',
-  :git => 'https://github.com/petems/puppet-collectd',
-  :ref => 'add_ability_to_set_conf_content'
+  :git => 'https://github.com/voxpupuli/puppet-collectd',
+  :ref => '2a164416ad521c1ffe50ba7f29c25dd013b37da9'
 
 mod 'grafana',
   :git => 'https://github.com/petems/puppet-grafana',
