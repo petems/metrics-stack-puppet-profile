@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
     vb.memory = "2000"
   end
 
-  config.vm.network "public_network"
+  config.vm.network "private_network", ip: "192.168.10.50"
 
   # Install Ruby
   config.vm.provision "shell", inline: <<-SHELL
@@ -40,7 +40,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "shell", inline: <<-SHELL
     service iptables stop # Could do this with Puppet, but feeling lazy
-    echo "Grafana is running at http://`facter ipaddress`:3000"
+    echo "Grafana is running at http://192.168.10.50:3000"
     echo "Username and password: admin:admin"
   SHELL
 
