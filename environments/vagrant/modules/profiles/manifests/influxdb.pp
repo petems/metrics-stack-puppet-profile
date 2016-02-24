@@ -6,4 +6,13 @@ class profiles::influxdb {
     conf_template => 'profiles/influxdb.conf.erb',
   }
 
+  file {'/var/opt/influxdb/':
+    ensure  => directory,
+    owner   => 'influxdb',
+    group   => 'influxdb',
+    recurse => true,
+  }
+
+  File['/var/opt/influxdb/'] ~> Service['influxdb']
+
 }
