@@ -36,6 +36,8 @@ Vagrant.configure(2) do |config|
     echo "Simulating some load to make the graphs more interesting"
     yum install -y stress
     stress --cpu 1 --timeout 60
+    echo "Download file to create network traffic"
+    wget http://ipv4.download.thinkbroadband.com/50MB.zip --quiet
   SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
